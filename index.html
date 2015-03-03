@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Family Vacations</title>
+  <style>
+  	#container {
+  		width:	1000px;
+  		margin:	auto;
+      text-align: center;
+      border: 1px solid black;
+  	}
+  	#caption {
+  		font-size:	14pt;
+  		margin:			10px;
+  	}
+    
+
+    #main{
+      width:1000px;
+      margin: auto;
+    }
+
+    .rand-image{
+      width:200px;
+      margin: auto;
+    }
+
+    .thumbnail{
+      width:100px;
+      margin: auto;
+    }
+
+  </style>
+
+	<script src="http://code.jquery.com/jquery-1.11.2.js"></script>
+
+ </head>
+ <body>
+  <div id="container">
+
+  	<div id="main">
+      <br>
+
+      
+      <br>
+      <br>
+  		<img id="main-img" src="images/disneyworld.jpg">
+      <br>
+      <div id="caption">
+        Disneyworld
+      </div>
+      <br> 
+      <img id="rand-image1" src="images/eiffel_tower.jpg"class="rand-image">
+      <img id="rand-image2" src="images/new_york.jpg"class="rand-image">
+      <img id="rand-image3" src="images/philippines.jpg" class="rand-image">
+      <br>
+      <br>
+      <button onclick = "getRandomImages();">
+        getRandomImages
+      </button>
+      <br>
+      <br>
+      <div id="thumbnails">
+      <script>
+          var imageNames = ["disneyworld.jpg","eiffel_tower.jpg", "great_wall_of_china.jpg", "hawaii.jpg", "las_vegas.jpg","new_york.jpg", "philippines.jpg", "pyramid.jpg", "taj_mahal.jpg", "yellowstone.jpg"];
+          var imageCaptions = ["Disneyworld", "Eiffel Tower", "Great Wall Of China", "Hawaii", "Las Vegas",
+            "New York", "Philippines", "Pyramid", "Taj Mahal", "Yellowstone"];
+            var thumbnails = document.getElementById("thumbnails");
+            thumbnails.innerHTML = "";
+            for(i = 0; i<imageNames.length; i++){
+              thumbnails.innerHTML+="<img class='thumbnail' onclick='selectThumbnail(this)' src='images/"+imageNames[i]+"'>"
+            }
+
+      </script>
+      </div>
+      <br>
+  		
+  	</div>
+    <br>
+  </div>
+ </body>
+ <script>
+   
+
+    function selectThumbnail(thumbnail){
+        console.log("thumbnail clicked");
+        console.log(thumbnail.src);
+        var imageNamesString = thumbnail.src.replace("images/","");
+        var selectIndex = 0;
+        console.log(imageNamesString);
+        for(i = 0; i < imageNames.length; i++){
+          if(imageNamesString.indexOf(imageNames[i])>-1){
+            selectIndex = i;
+            console.log("found index");
+          }
+        } 
+
+        document.getElementById("main-img").src = "images/" + imageNames[selectIndex];
+        document.getElementById("caption").innerHTML = imageCaptions[selectIndex];
+      }
+    function getRandomImages(){
+      //random without repeat. 
+      var uniqueRandoms = [];
+      for(var i =0; i<10; i++){
+        uniqueRandoms.push(i);
+      }
+
+        
+      var randNum = makeUniqueRandom(uniqueRandoms);
+      document.getElementById("rand-image1").src = "images/" + imageNames[randNum];
+      randNum = makeUniqueRandom(uniqueRandoms);
+      document.getElementById("rand-image2").src = "images/" + imageNames[randNum];
+      randNum = makeUniqueRandom(uniqueRandoms);
+      document.getElementById("rand-image3").src = "images/" + imageNames[randNum];
+    }
+
+
+    function makeUniqueRandom(uniqueRandoms) {
+
+      var index = Math.floor(Math.random() * uniqueRandoms.length);
+      var val = uniqueRandoms[index];
+
+      // now remove that value from the array
+      uniqueRandoms.splice(index, 1);
+
+      return val;
+
+    }
+  </script>
+</html>
